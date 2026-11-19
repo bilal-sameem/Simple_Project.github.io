@@ -1,0 +1,8 @@
+<div class="field doc-group" data-name="{{ field }}">
+  <label for="{{ field }}">{{ label }}{% if req %}<span class="req">*</span>{% endif %}</label>
+  {% if docs %}<ul class="doc-list">{% for d in docs %}
+    <li><a href="{% url 'sawanih:document_file' d.pk %}" target="_blank" rel="noopener">{{ d.original_name|default:"فایل" }}</a>
+      <label class="rm"><input type="checkbox" name="remove_docs" value="{{ d.pk }}"> لرې کړئ</label></li>{% endfor %}</ul>{% endif %}
+  <input type="file" id="{{ field }}" name="{{ field }}" accept="image/jpeg,image/png,image/webp,application/pdf" multiple>
+  <div class="err"></div>
+</div>

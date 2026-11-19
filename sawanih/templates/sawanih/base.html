@@ -1,0 +1,55 @@
+{% load static %}<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token }}">
+<title>{% block title %}سوانح{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'sawanih/shell.css' %}">
+{% block css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block skip %}{% endblock %}
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="{% url 'sawanih:dashboard' %}"><span>سوانح</span></a>
+    <nav class="site-nav" aria-label="اصلي مېنو">
+      <a href="{% url 'sawanih:dashboard' %}"{% if active == 'home' %} class="active" aria-current="page"{% endif %}>کورپاڼه</a>
+      <a href="{% url 'sawanih:dashboard' %}#persons">اشخاص</a>
+      <a href="{% url 'sawanih:reports' %}"{% if active == 'reports' %} class="active" aria-current="page"{% endif %}>راپورونه</a>
+    </nav>
+    <div class="actions">
+      <a class="cta" href="{% url 'sawanih:person_new' %}">＋ نوی شخص</a>
+      {% if user.is_authenticated %}<form class="logout" method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" title="{{ user.get_username }}">وتل</button></form>{% endif %}
+    </div>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>
+      <a class="brand" href="{% url 'sawanih:dashboard' %}"><span class="brand-mark" aria-hidden="true">س</span><span>سوانح</span></a>
+      <p>د اشخاصو د معلوماتو او اسنادو مدیریت سیستم.</p>
+      <p class="copy">ټول حقوق خوندي دي.</p>
+    </div>
+    <nav aria-label="چټک لینکونه">
+      <h2>چټک لینکونه</h2>
+      <a href="{% url 'sawanih:dashboard' %}">کورپاڼه</a>
+      <a href="{% url 'sawanih:person_new' %}">نوی شخص ثبت کړئ</a>
+      <a href="{% url 'sawanih:reports' %}">راپورونه</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="toasts" aria-live="polite" id="toasts">
+  {% for m in messages %}<div class="toast {{ m.tags }}" role="status">{{ m }}</div>{% endfor %}
+</div>
+<script>
+// Show messages for 4 seconds, then fade them out.
+document.querySelectorAll('.toast').forEach(t=>setTimeout(()=>t.classList.add('hide'),4000));
+</script>
+{% block js %}{% endblock %}
+</body>
+</html>

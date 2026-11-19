@@ -1,0 +1,27 @@
+{% extends "authenticate/auth_base.html" %}
+{% block title %}نوی حساب | Sign up | سوانح{% endblock %}
+{% block body %}
+<h1>نوی حساب جوړ کړئ <span class="en">Sign up</span></h1>
+<p class="sub">{% if first_user %}دا لومړی حساب دی، نو د سیستم اداره کوونکی به وي.{% else %}د حساب له جوړېدو وروسته به اداره کوونکی فعال کړي.{% endif %}</p>
+<form method="post" action="{% url 'signup' %}" novalidate>
+  {% csrf_token %}
+  <div class="field{% if errors.username %} invalid{% endif %}">
+    <label for="username">د کاروونکي نوم <span class="en">Username</span></label>
+    <input type="text" id="username" name="username" value="{{ values.username }}" maxlength="30" autocomplete="username" dir="ltr" style="text-align:right" autofocus required>
+    {% if errors.username %}<div class="err">{{ errors.username }}</div>{% endif %}
+  </div>
+  <div class="field{% if errors.password1 %} invalid{% endif %}">
+    <label for="password1">پټنوم <span class="en">Password</span></label>
+    <input type="password" id="password1" name="password1" autocomplete="new-password" dir="ltr" style="text-align:right" required>
+    {% if errors.password1 %}<div class="err">{{ errors.password1 }}</div>{% endif %}
+  </div>
+  <div class="field{% if errors.password2 %} invalid{% endif %}">
+    <label for="password2">د پټنوم تکرار <span class="en">Confirm password</span></label>
+    <input type="password" id="password2" name="password2" autocomplete="new-password" dir="ltr" style="text-align:right" required>
+    {% if errors.password2 %}<div class="err">{{ errors.password2 }}</div>{% endif %}
+  </div>
+  <label class="check"><input type="checkbox" data-toggle-pw="password1 password2"><span>پټنومونه وښایاست</span><span class="en">Show passwords</span></label>
+  <button class="btn" type="submit">حساب جوړ کړئ<span class="en">Sign up</span></button>
+</form>
+<p class="switch">مخکې حساب لرئ؟ <a href="{% url 'login' %}">ننوتل <span class="en">Sign in</span></a></p>
+{% endblock %}

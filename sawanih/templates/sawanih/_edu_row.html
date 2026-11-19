@@ -1,0 +1,9 @@
+<div class="edu-row">
+  <input type="hidden" name="edu_id" value="{{ e.pk|default_if_none:'' }}">
+  <div class="edu-head"><strong class="edu-title">درجه</strong><button type="button" class="btn sm danger edu-remove">لرې کړئ</button></div>
+  <div class="grid">
+    <div class="field" data-name="edu_degree"><label>درجه (لکه لیسانس، ماستر)<input type="text" name="edu_degree" maxlength="100" value="{{ e.degree|default_if_none:'' }}"></label><div class="err"></div></div>
+    <div class="field" data-name="edu_institution"><label>موسسه / پوهنتون<input type="text" name="edu_institution" maxlength="150" value="{{ e.institution|default_if_none:'' }}"></label><div class="err"></div></div>
+    <div class="field" data-name="edu_year"><label>د فراغت کال<input type="number" name="edu_year" min="1300" max="1500" placeholder="۱۳۹۸" inputmode="numeric" dir="ltr" style="text-align:right" value="{{ e.graduation_year|default_if_none:'' }}"></label><div class="err"></div></div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+{% extends "authenticate/auth_base.html" %}
+{% block title %}ننوتل | سوانح{% endblock %}
+{% block body %}
+<h1>ننوتل <span class="en">Sign in</span></h1>
+<p class="sub">د سوانحو سیستم ته د ننوتلو لپاره خپل معلومات ولیکئ.</p>
+{% if notice %}<div class="alert info" role="status">{{ notice }}</div>{% endif %}
+{% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+<form method="post" action="{% url 'login' %}" novalidate>
+  {% csrf_token %}
+  {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+  <div class="field">
+    <label for="username">د کاروونکي نوم <span class="en">Username</span></label>
+    <input type="text" id="username" name="username" value="{{ username }}" autocomplete="username" dir="ltr" style="text-align:right" autofocus required>
+  </div>
+  <div class="field">
+    <label for="password">پټنوم <span class="en">Password</span></label>
+    <input type="password" id="password" name="password" autocomplete="current-password" dir="ltr" style="text-align:right" required>
+  </div>
+  <label class="check"><input type="checkbox" data-toggle-pw="password"><span>پټنوم وښایاست</span><span class="en">Show password</span></label>
+  <button class="btn" type="submit">ننوتل<span class="en">Sign in</span></button>
+</form>
+<p class="switch">حساب نه لرئ؟ <a href="{% url 'signup' %}">نوی حساب جوړ کړئ <span class="en">Sign up</span></a></p>
+{% endblock %}
